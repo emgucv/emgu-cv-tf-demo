@@ -15,8 +15,8 @@ namespace EmguMauiApp
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
+#if DEBUG && (__ANDROID__ || __IOS__ || __MACCATALYST__ || WINDOWS)
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

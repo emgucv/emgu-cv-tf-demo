@@ -1,9 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('osx'))">$(TargetFrameworks);net8.0-ios</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<DotNetLevel>net9.0</DotNetLevel>
+		<!-- 
+		  The $(DotNetLevel) target framework is used for Unit Test. 
+		  If you don't need unit test, you can remove the $(DotNetLevel) TargetFramework 
+		-->
+		<TargetFrameworks>$(DotNetLevel);$(DotNetLevel)-android</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('osx'))">$(TargetFrameworks);$(DotNetLevel)-ios</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);$(DotNetLevel)-windows10.0.19041.0</TargetFrameworks>
 
 		<!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
@@ -11,8 +16,7 @@
 		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
 		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
 		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
-
-		<OutputType>Exe</OutputType>
+		<OutputType Condition="'$(TargetFramework)' != '$(DotNetLevel)'">Exe</OutputType>
 		<RootNamespace>EmguMauiApp</RootNamespace>
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
@@ -56,10 +60,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.9.0.5494" />
-		<PackageReference Include="Emgu.TF.Lite.runtime.maui" Version="2.15.0.1583" />
+		<!-- the following two nuget references are for unit tests -->
+		<PackageReference Condition="('$(TargetFramework)' == '$(DotNetLevel)') AND $([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.CV.runtime.windows.dldt" Version="4.9.0.5494" />
+		<PackageReference Condition="('$(TargetFramework)' == '$(DotNetLevel)') AND $([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.TF.Lite.runtime.windows" Version="2.16.1.1623" />
+		
+		<!-- reference MAUI packages -->
+		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.CV.runtime.maui" Version="4.9.0.5494" />
+		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.TF.Lite.runtime.maui" Version="2.16.1.1623" />
+		
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 	</ItemGroup>
 </Project>

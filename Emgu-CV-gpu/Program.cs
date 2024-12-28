@@ -2,3 +2,4 @@
 Console.WriteLine(Emgu.CV.CvInvoke.BuildInformation);
 
 Console.WriteLine(Emgu.CV.Cuda.CudaInvoke.GetCudaDevicesSummary());
+
