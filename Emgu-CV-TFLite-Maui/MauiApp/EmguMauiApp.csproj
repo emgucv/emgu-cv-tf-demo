@@ -60,9 +60,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- the following two nuget references are for unit tests -->
+		<!-- the following two nuget references are for unit tests on Windows -->
 		<PackageReference Condition="('$(TargetFramework)' == '$(DotNetLevel)') AND $([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.CV.runtime.windows.dldt" Version="4.9.0.5494" />
 		<PackageReference Condition="('$(TargetFramework)' == '$(DotNetLevel)') AND $([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.TF.Lite.runtime.windows" Version="2.16.1.1623" />
+		
+		<!-- the following two nuget references are for unit tests on MacOS -->
+		<PackageReference Condition="('$(TargetFramework)' == '$(DotNetLevel)') AND $([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.CV.runtime.macos" Version="4.9.0.5494" />
+		<PackageReference Condition="('$(TargetFramework)' == '$(DotNetLevel)') AND $([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.TF.Lite.runtime.macos" Version="2.16.1.1623" />
 		
 		<!-- reference MAUI packages -->
 		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.CV.runtime.maui" Version="4.9.0.5494" />
