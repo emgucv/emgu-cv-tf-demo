@@ -17,7 +17,17 @@
   <ItemGroup>
     <ProjectReference Include="..\MauiApp\EmguMauiApp.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <!-- the following two nuget references are for unit tests on Windows -->
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.CV.runtime.windows.dldt" Version="4.9.0.5494" />
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.TF.Lite.runtime.windows" Version="2.16.1.1623" />
+		
+	<!-- the following two nuget references are for unit tests on MacOS -->
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.CV.runtime.macos" Version="4.9.0.5494" />
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.TF.Lite.runtime.macos" Version="2.16.1.1623" />
+  </ItemGroup>
+  
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
