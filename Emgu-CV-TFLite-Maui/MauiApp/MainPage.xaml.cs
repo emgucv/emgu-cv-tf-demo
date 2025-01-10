@@ -12,7 +12,8 @@ namespace EmguMauiApp
 
         private void OnCounterClicked(object sender, EventArgs e)
         {
-            CounterBtn.Text = GetBuildInfo();
+            WelcomeMsg.Text = GetBuildInfo();
+            //CounterBtn.Text = GetBuildInfo();
 
             //SemanticScreenReader.Announce(CounterBtn.Text);
         }

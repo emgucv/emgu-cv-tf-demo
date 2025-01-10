@@ -60,12 +60,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- the following two nuget references are for unit tests on Windows -->
-		<PackageReference Condition="'$(TargetFramework)' == '$(DotNetLevel)'" Include="Emgu.CV" Version="4.9.0.5494" />
+		<!-- the following nuget reference is for unit tests on Windows -->
 		<PackageReference Condition="'$(TargetFramework)' == '$(DotNetLevel)'" Include="Emgu.TF.Lite" Version="2.16.1.1623" />
 		
 		<!-- reference MAUI packages -->
-		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.CV.runtime.maui" Version="4.9.0.5494" />
+		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.10.0.5680" />
 		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.TF.Lite.runtime.maui" Version="2.16.1.1623" />
 		
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
