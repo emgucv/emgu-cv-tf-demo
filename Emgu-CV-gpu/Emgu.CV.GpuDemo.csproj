@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Emgu.CV.runtime.windows.cuda" Version="4.9.0.5494" />
+    <PackageReference Include="Emgu.CV.runtime.windows.cuda" Version="4.10.0.5683" />
   </ItemGroup>
 
 </Project>
