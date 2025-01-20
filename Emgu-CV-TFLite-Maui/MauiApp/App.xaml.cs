@@ -12,7 +12,11 @@ namespace EmguMauiApp
             Emgu.TF.Lite.Platform.Maui.MauiInvoke.Init();
             Emgu.CV.Platform.Maui.MauiInvoke.Init();
 #endif            
-            MainPage = new AppShell();
+        }
+		
+		protected override Window CreateWindow(IActivationState? activationState)
+        {
+            return new Window(new AppShell());
         }
     }
 }
