@@ -63,16 +63,16 @@
 
 	<ItemGroup>
 		<!-- the following nuget reference is for unit tests on Windows -->
-		<PackageReference Condition="'$(TargetFramework)' == '$(DotNetLevel)'" Include="Emgu.TF.Lite" Version="2.16.1.1623" />
+		<PackageReference Condition="'$(TargetFramework)' == '$(DotNetLevel)'" Include="Emgu.TF.Lite" Version="2.19.0.1709" />
 		
 		<!-- reference MAUI packages -->
-		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.10.0.5680" />
-		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.TF.Lite.runtime.maui" Version="2.16.1.1623" />
+		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.11.0.5746" />
+		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.TF.Lite.runtime.maui" Version="2.19.0.1709" />
 		
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
 		<!-- Needed for Android AOT compilation -->
-		<PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="System.Formats.Nrbf" Version="9.0.0" />
+		<PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="System.Formats.Nrbf" Version="9.0.8" />
 	</ItemGroup>
 </Project>
