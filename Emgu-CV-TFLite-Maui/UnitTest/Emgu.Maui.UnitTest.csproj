@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <SdkMajorMinor>$([System.Version]::Parse('$(NETCoreSdkVersion)').Major).$([System.Version]::Parse('$(NETCoreSdkVersion)').Minor)</SdkMajorMinor>
+    <DotNetLevel>net$(SdkMajorMinor)</DotNetLevel>
+    <TargetFramework>$(DotNetLevel)</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -12,9 +14,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageReference Include="xunit" Version="2.9.3" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4">
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -26,12 +28,12 @@
   
   <ItemGroup>
     <!-- the following two nuget references are for unit tests on Windows -->
-	<PackageReference Condition="$([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.CV.runtime.windows.dldt" Version="4.11.0.5746" />
-	<PackageReference Condition="$([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.TF.Lite.runtime.windows" Version="2.19.0.1709" />
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.CV.runtime.windows.dldt" Version="4.12.0.5764" />
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('windows'))" Include="Emgu.TF.Lite.runtime.windows" Version="2.20.0.1731" />
 		
 	<!-- the following two nuget references are for unit tests on MacOS -->
-	<PackageReference Condition="$([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.CV.runtime.macos" Version="4.9.0.5494" />
-	<PackageReference Condition="$([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.TF.Lite.runtime.macos" Version="2.16.1.1623" />
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.CV.runtime.macos" Version="4.12.0.5764" />
+	<PackageReference Condition="$([MSBuild]::IsOSPlatform('osx'))" Include="Emgu.TF.Lite.runtime.macos" Version="2.20.0.1731" />
   </ItemGroup>
   
   <ItemGroup>

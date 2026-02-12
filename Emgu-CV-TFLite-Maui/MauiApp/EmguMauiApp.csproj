@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<DotNetLevel>net9.0</DotNetLevel>
+    <!-- Split by '.' and keep first two parts -->
+    <SdkMajorMinor>$([System.Version]::Parse('$(NETCoreSdkVersion)').Major).$([System.Version]::Parse('$(NETCoreSdkVersion)').Minor)</SdkMajorMinor>
+    <DotNetLevel>net$(SdkMajorMinor)</DotNetLevel>
 		<!-- 
 		  The $(DotNetLevel) target framework is used for Unit Test. 
 		  If you don't need unit test, you can remove the $(DotNetLevel) TargetFramework 
@@ -63,16 +65,21 @@
 
 	<ItemGroup>
 		<!-- the following nuget reference is for unit tests on Windows -->
-		<PackageReference Condition="'$(TargetFramework)' == '$(DotNetLevel)'" Include="Emgu.TF.Lite" Version="2.19.0.1709" />
-		
+		<!--
+		<PackageReference Condition="'$(TargetFramework)' == '$(DotNetLevel)'" Include="Emgu.TF.Lite" Version="2.20.0.1731" />
+		-->
+
 		<!-- reference MAUI packages -->
-		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.11.0.5746" />
-		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Emgu.TF.Lite.runtime.maui" Version="2.19.0.1709" />
+		<PackageReference Include="Emgu.CV.runtime.maui" Version="4.12.0.5764" />
+		<PackageReference Include="Emgu.TF.Lite.runtime.maui" Version="2.20.0.1731" />
 		
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Microsoft.Extensions.Logging.Debug" Version="9.0.8" />
+		<PackageReference Condition="'$(TargetFramework)' != '$(DotNetLevel)'" Include="Microsoft.Extensions.Logging.Debug" Version="10.0.3" />
 		<!-- Needed for Android AOT compilation -->
-		<PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="System.Formats.Nrbf" Version="9.0.8" />
+		<PackageReference Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" Include="System.Formats.Nrbf" Version="10.0.3" />
 	</ItemGroup>
+  <Target Name="ShowDotNetVersion" BeforeTargets="Build">
+    <Message Text="DotNetLevel: $(DotNetLevel); SdkMajorMinor: $(SdkMajorMinor); TargetFramework: $(TargetFramework)" Importance="High" />
+  </Target>
 </Project>
